@@ -4,23 +4,12 @@ using System;
 using System.Drawing;
 using static Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe.Piece;
 using static Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe.StateType;
+using static Lapluma.Konata.Tasks.Implementations.UtilModels.Assets.TicTacToe;
 
 namespace Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe;
 internal class Board : IDrawable
 {
 	#region Static Assets
-	private const int BOARD_EDGE = 50;
-	private const int GRID_SIZE = 75;
-	private const int CHECKMATE_BASE_COORD = BOARD_EDGE + GRID_SIZE / 2 - 6;
-	private const string ASSETS_DIR = $@"{Lapluma.ASSETS_DIR}TicTacToe\";
-	private const string BOARD_FILE = $"{ASSETS_DIR}Board.png";
-
-	private readonly static Bitmap s_pieceOBmp = new($"{ASSETS_DIR}PieceO.png");
-	private readonly static Bitmap s_pieceXBmp = new(System.IO.File.OpenRead($"{ASSETS_DIR}PieceX.png"));// new($"{ASSETS_DIR}PieceX.png");
-	private readonly static Bitmap s_checkmateHorBmp = new($"{ASSETS_DIR}CheckmateHor.png");
-	private readonly static Bitmap s_checkmateVerBmp = new($"{ASSETS_DIR}CheckmateVer.png");
-	private readonly static Bitmap s_checkmateSlashBmp = new($"{ASSETS_DIR}CheckmateSlash.png");
-	private readonly static Bitmap s_checkmateBackSlashBmp = new($"{ASSETS_DIR}CheckmateBackSlash.png");
 	#endregion
 
 	private readonly Piece[,] _board = new[,]
@@ -80,28 +69,28 @@ internal class Board : IDrawable
 			{
 				var paintBmp = value switch
 				{
-					O => s_pieceOBmp,
-					X => s_pieceXBmp,
+					O => PieceOImage,
+					X => PieceXImage,
 					_ => throw new InvalidOperationException()
 				};
 				_graphics.DrawImage(paintBmp,
-					BOARD_EDGE + row * GRID_SIZE,
-					BOARD_EDGE + col * GRID_SIZE);
+					BOARD_EDGE_BLANK + row * GRID_SIZE,
+					BOARD_EDGE_BLANK + col * GRID_SIZE);
 			}
 			// Draw Checkmate
 			{
 				switch (Checkmate.Absolute()) {
 					case Slash:
-						_graphics.DrawImage(s_checkmateSlashBmp, BOARD_EDGE, BOARD_EDGE);
+						_graphics.DrawImage(CheckmateSlashImage, BOARD_EDGE_BLANK, BOARD_EDGE_BLANK);
 						break;
 					case BackSlash:
-						_graphics.DrawImage(s_checkmateBackSlashBmp, BOARD_EDGE, BOARD_EDGE);
+						_graphics.DrawImage(CheckmateBackslashImage, BOARD_EDGE_BLANK, BOARD_EDGE_BLANK);
 						break;
 					case Horizontal:
-						_graphics.DrawImage(s_checkmateHorBmp, BOARD_EDGE, CHECKMATE_BASE_COORD + GRID_SIZE * Checkmate.GetLine());
+						_graphics.DrawImage(CheckmateHorImage, BOARD_EDGE_BLANK, CHECKMATE_BASE_COORD + GRID_SIZE * Checkmate.GetLine());
 						break;
 					case Vertical:
-						_graphics.DrawImage(s_checkmateVerBmp, CHECKMATE_BASE_COORD + GRID_SIZE * Checkmate.GetLine(), BOARD_EDGE);
+						_graphics.DrawImage(CheckmateVerImage, CHECKMATE_BASE_COORD + GRID_SIZE * Checkmate.GetLine(), BOARD_EDGE_BLANK);
 						break;
 					default:
 						break;
