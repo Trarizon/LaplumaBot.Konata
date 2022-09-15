@@ -128,6 +128,7 @@ public static class Lapluma
 		new Hug(),
 		new SendMessage(),
 		new TicTacToe(),
+		new DrawDeemoChartClip(),
 	};
 
 	public static async Task<bool> Login()
