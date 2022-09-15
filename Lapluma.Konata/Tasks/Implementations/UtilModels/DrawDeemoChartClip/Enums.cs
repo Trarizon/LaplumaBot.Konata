@@ -8,17 +8,19 @@ internal enum NoteType
 {
 	Piano,
 	NoSound,
-	Slide
+	Slide,
+	Empty
 }
 
 internal static class EnumExtensions
 {
-	public static Image Image(this NoteType noteType)
+	public static Image? Image(this NoteType noteType)
 		=> noteType switch
 		{
 			NoteType.Piano => Assets.Deemo.PianoNoteImage,
 			NoteType.NoSound => Assets.Deemo.NoSoundNoteImage,
 			NoteType.Slide => Assets.Deemo.SlideImage,
+			NoteType.Empty => null,
 			_ => throw new InvalidOperationException()
 		};
 }

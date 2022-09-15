@@ -69,7 +69,7 @@ internal sealed class DrawDeemoChartClip : BaseTask
 	 * Multinote: (02[2]1.) => {pos=0}{pos=2,size=2}{pos=1.5}
 	 * 
 	 * posticeFloat:pf: \d+(.\d+)?
-	 * note:nt: -?\d.?(\[\pf\])?(n|s|p)?
+	 * note:nt: -?\d(.(\d)?)?(\[\pf\])?(n|s|p)?
 	 * multiNote:mnt: \(\nt*\)
 	 * chart:cht: (\mnt|\nt)*
 	 */
@@ -83,7 +83,7 @@ internal sealed class DrawDeemoChartClip : BaseTask
 		// (\mnt|\nt)*
 		IEnumerable<SimpleNote> Chart()
 		{
-			List<SimpleNote> notes = new ();
+			List<SimpleNote> notes = new();
 
 			while (index < chartstr.Length) {
 				var first = CurrentChar();
@@ -103,8 +103,10 @@ internal sealed class DrawDeemoChartClip : BaseTask
 		IEnumerable<SimpleNote> MultiNote()
 		{
 			List<SimpleNote> notes = new();
-
 			index++;
+
+			while (CurrentChar() is ' ' or '\n') index++;
+
 			while (CurrentChar() != ')')
 				notes.Add(Note());
 			index++;
@@ -112,13 +114,20 @@ internal sealed class DrawDeemoChartClip : BaseTask
 			return notes;
 		}
 
-		// -?\d.?(\[\pf\])?(s|n|p)?
+		// -?\d(.(\d)?)?(\[\pf\])?(n|s|p)?
 		SimpleNote Note()
 		{
 			int flag;
 			float absPos;
 			float size;
 			NoteType noteType;
+
+			while (CurrentChar() is ' ' or '\n') index++;
+
+			if (CurrentChar() == '_') {
+				index++;
+				return SimpleNote.Empty;
+			}
 
 			if (CurrentChar() == '-') {
 				flag = -1;
@@ -128,16 +137,19 @@ internal sealed class DrawDeemoChartClip : BaseTask
 
 			if (char.IsDigit(CurrentChar())) {
 				absPos = CurrentChar() - '0';
-				if (absPos > 2) throw new ManualRegexMatchingException($"Note position {CurrentChar()} out of bound.", index, chartstr.Substring(index, 5));
 				index++;
 			}
 			else throw new ManualRegexMatchingException($"Undefined char '{CurrentChar()}'.", index, chartstr.Substring(index, 5));
 
 			if (CurrentChar() == '.') {
-				absPos += 0.5f;
-				if (absPos == 2) throw new ManualRegexMatchingException("Note position 2.5 out of bound.", index - 1, chartstr.Substring(index - 1, 5));
 				index++;
+				if (char.IsDigit(CurrentChar())) {
+					absPos += 0.1f * (CurrentChar() - '0');
+					index++;
+				}
+				else absPos += 0.5f; // No digit following '.'
 			}
+			if (absPos > 2) throw new ManualRegexMatchingException($"Note position {absPos:1F} out of bound.", index - 1, chartstr.Substring(index - 1, 5));
 
 			if (CurrentChar() == '[') {
 				int start = index + 1;
@@ -181,8 +193,8 @@ internal sealed class DrawDeemoChartClip : BaseTask
 	private static Bitmap Draw(IEnumerable<SimpleNote> chart, double speed)
 	{
 		const int TOP_EMPTY = 20;
-		double spacing = speed * 20;
-		var height = chart.Last().Time *  spacing + TOP_EMPTY * 2;
+		double spacing = speed * 24;
+		var height = chart.Last().Time * spacing + TOP_EMPTY * 2;
 		const int width = 560;
 
 		var pic = new Bitmap(width, (int)height);
@@ -191,6 +203,8 @@ internal sealed class DrawDeemoChartClip : BaseTask
 
 		foreach (var note in chart.Reverse()) {
 			var noteImg = note.NoteType.Image();
+			if (noteImg is null) continue; // Skip empty
+
 			float w = noteImg.Width * note.Size;
 			float h = noteImg.Height;
 			graphics.DrawImage(noteImg,
