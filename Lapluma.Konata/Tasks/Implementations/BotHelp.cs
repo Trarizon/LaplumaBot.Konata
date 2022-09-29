@@ -50,6 +50,9 @@ internal sealed class BotHelp : BaseTask
 			"tasks" => GetTasks(uid),
 
 			"friendreq" => "RafaelaSilva",
+
+			"poke" => "唔嗯？",
+
 			_ => "唔...我不明白什么意思",
 		};
 		await handler(Message.Text(msg));
@@ -58,7 +61,7 @@ internal sealed class BotHelp : BaseTask
 		static string GetTasks(Uid uid)
 		{
 			StringBuilder sb;
-			if (uid == Lapluma.DoctorUid) {
+			if (uid == Lapluma.DoctorUid) { // Doctor's private chat
 				sb = new("目前拥有的tasks\n");
 				foreach (var task in Lapluma.Tasks) {
 					sb.AppendLine($"{task.Name}: " +

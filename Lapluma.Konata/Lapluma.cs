@@ -122,6 +122,7 @@ public static class Lapluma
 
 	public static BaseTask[] Tasks { get; } = new BaseTask[] {
 		new BotHelp(),
+		new BotManipulation(),
 		new AgainstQuickFactorization(),
 		new FixedReply(),
 		new GetWyyResource(),
@@ -135,7 +136,7 @@ public static class Lapluma
 	{
 		try {
 			Load();
-			DisplayMessage("Loaded");
+			DisplayMessage("Data Loaded");
 		} catch (Exception ex) {
 			DisplayMessage($"Load() Exception: {ex.Message}");
 			return false;
@@ -165,7 +166,7 @@ public static class Lapluma
 	public static uint GetUidFromAbbr(string label)
 		=> _uidLabels.TryGetValue(label, out uint uid) ? uid : 0;
 
-	public enum DataOption { UidLabel = 1, Tasks = 2, All = UidLabel | Tasks }
+	public enum DataOption { UidLabel = 1, Tasks = 2, Events = 4, All = UidLabel | Tasks | Events }
 	public static void Load(DataOption options = DataOption.All)
 	{
 		if (options.HasFlag(DataOption.UidLabel)) {
@@ -173,6 +174,9 @@ public static class Lapluma
 		}
 		if (options.HasFlag(DataOption.Tasks)) {
 			foreach (var task in Tasks) task.Load();
+		}
+		if (options.HasFlag(DataOption.Events)) {
+			EventInvokeAction.Load();
 		}
 	}
 
@@ -183,6 +187,9 @@ public static class Lapluma
 		}
 		if (options.HasFlag(DataOption.Tasks)) {
 			foreach (var task in Tasks) task.Save();
+		}
+		if (options.HasFlag(DataOption.Events)) {
+			EventInvokeAction.Save();
 		}
 	}
 

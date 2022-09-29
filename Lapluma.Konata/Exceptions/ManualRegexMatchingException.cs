@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Lapluma.Konata.Exceptions;
-public class ManualRegexMatchingException : Exception
+public class ManualRegexMatchingException : TaskException
 {
 	public ManualRegexMatchingException(string message, int index, string substring)
 		: base($"{message}" +

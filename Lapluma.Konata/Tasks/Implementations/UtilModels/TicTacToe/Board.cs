@@ -1,13 +1,12 @@
-﻿using Lapluma.Konata.Tasks.Interfaces;
-using Lapluma.Konata.Utilities;
+﻿using Lapluma.Konata.Utilities;
 using System;
 using System.Drawing;
+using static Lapluma.Konata.Tasks.Implementations.UtilModels.Assets.TicTacToe;
 using static Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe.Piece;
 using static Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe.StateType;
-using static Lapluma.Konata.Tasks.Implementations.UtilModels.Assets.TicTacToe;
 
 namespace Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe;
-internal class Board : IDrawable
+internal class Board
 {
 	#region Static Assets
 	#endregion

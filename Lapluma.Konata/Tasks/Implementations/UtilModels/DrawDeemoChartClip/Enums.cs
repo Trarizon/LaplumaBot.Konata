@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace Lapluma.Konata.Tasks.Implementations.UtilModels.DrawDeemoChartClip;
 internal enum NoteType

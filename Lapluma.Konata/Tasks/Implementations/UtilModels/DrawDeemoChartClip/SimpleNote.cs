@@ -1,4 +1,6 @@
-﻿namespace Lapluma.Konata.Tasks.Implementations.UtilModels.DrawDeemoChartClip;
+﻿using System.Drawing;
+
+namespace Lapluma.Konata.Tasks.Implementations.UtilModels.DrawDeemoChartClip;
 internal class SimpleNote
 {
 	public static SimpleNote Empty { get; } = new(0, 0, 0, NoteType.Empty);
@@ -7,6 +9,8 @@ internal class SimpleNote
 	public float Position { get; }
 	public float Size { get; }
 	public NoteType NoteType { get; }
+
+	public Image? Image => NoteType.Image();
 
 	public SimpleNote(int time, float position, float size, NoteType noteType)
 	{
