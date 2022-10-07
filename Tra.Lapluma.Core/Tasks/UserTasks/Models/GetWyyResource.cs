@@ -18,8 +18,8 @@ internal sealed class GetWyyResource : AwaitTask<GetWyyResource.Package>
 		actRgx: "wyy|网易云",
 		name: nameof(GetWyyResource),
 		summary: "获取网易云专辑图或音乐链接",
-		help: "wyy [(-c|-m)] [<url>]\n" +
-		"# (-c|-m) => 指定获取专辑图(c)或音乐链接(m)，留空一并获取\n" +
+		help: "(wyy|网易云) [-c|-m] [<url>]\n" +
+		"# -c|-m => 指定获取专辑图(c)或音乐链接(m)，留空一并获取\n" +
 		"# <url> => 网易云音乐的连接，留空则等待网易云转发消息",
 		friendDefaultEnable: true,
 		groupDefaultEnable: true)
