@@ -1,6 +1,6 @@
 ﻿using Konata.Core.Events.Model;
 using System.Threading.Tasks;
-using Tra.Lapluma.Core.Tasks.UserTasks.Packages;
+using Tra.Lapluma.Core.Tasks.UserTasks.TaskPackages;
 
 namespace Tra.Lapluma.Core.Tasks.UserTasks;
 public abstract class MultiPlayerTask<TPackage> : LoopTask<TPackage>

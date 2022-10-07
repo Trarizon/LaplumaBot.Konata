@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Tra.Lapluma.Core.Exceptions;
-using Tra.Lapluma.Core.Tasks.UserTasks.Packages;
+using Tra.Lapluma.Core.Tasks.UserTasks.TaskPackages;
 using Tra.Lapluma.Core.Utilities;
 using static Tra.Lapluma.Core.Tasks.UserTasks.Models.GetWyyResource.Package;
 using static Tra.Lapluma.Core.Utilities.Message;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Tra.Lapluma.Core.Tasks.UserTasks.Packages;
+using Tra.Lapluma.Core.Tasks.UserTasks.TaskPackages;
 using Tra.Lapluma.Core.Utilities;
 
 namespace Tra.Lapluma.Core.Tasks.UserTasks.Models;

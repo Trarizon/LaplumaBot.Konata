@@ -4,7 +4,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tra.Lapluma.Core.Tasks.UserTasks.Models.Utils.TicTacToe;
-using Tra.Lapluma.Core.Tasks.UserTasks.Packages;
+using Tra.Lapluma.Core.Tasks.UserTasks.TaskPackages;
 using Tra.Lapluma.Core.Utilities;
 using static Konata.Core.Message.BaseChain.ChainType;
 

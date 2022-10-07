@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Tra.Lapluma.Core.Tasks.UserTasks.Packages;
+using Tra.Lapluma.Core.Tasks.UserTasks.TaskPackages;
 using Tra.Lapluma.Core.Utilities.Model;
 
 namespace Tra.Lapluma.Core.Tasks.UserTasks;
