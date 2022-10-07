@@ -8,9 +8,6 @@ using static Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe.StateType
 namespace Lapluma.Konata.Tasks.Implementations.UtilModels.TicTacToe;
 internal class Board
 {
-	#region Static Assets
-	#endregion
-
 	private readonly Piece[,] _board = new[,]
 	{
 		{ N, N, N },
@@ -59,8 +56,6 @@ internal class Board
 				// BackSlash
 				else if (col == row && Equal(_board[0, 0], _board[1, 1], _board[2, 2]))
 					Checkmate = BackSlash;
-				else
-					return;
 
 				static bool Equal(Piece a, Piece b, Piece c) => a == b && b == c;
 			}

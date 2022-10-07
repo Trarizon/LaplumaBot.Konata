@@ -144,8 +144,8 @@ internal sealed class AgainstQuickFactorization : LoopTask<AgainstQuickFactoriza
 			var msg = e.Chain.ToString();
 			if (msg.Contains("最终分数"))
 				pkg.State = BasePackage.StateType.Terminated;
-			if (msg.Contains("开挂石锤")) {
-				pkg.State |= BasePackage.StateType.Terminated;
+			else if (msg.Contains("开挂石锤")) {
+				pkg.State = BasePackage.StateType.Terminated;
 				await Lapluma.SendGroupMessageAsync(e, "Bot的事，怎么能叫挂呢");
 			}
 			else return false;
